@@ -1,4 +1,4 @@
 {
-  "*.{json,md}": ["npm run prettier"],
-  "*.{js,jsx,ts,tsx}": ["npm run eslint"]
+  "*.{js,jsx,ts,tsx}": ["npm run eslint"],
+  "*.{json,md}": ["npm run prettier"]
 }
