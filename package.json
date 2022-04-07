@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev nodemon --exec ts-node  src/app.ts",
+    "start": "cross-env NODE_ENV=dev nodemon --exec ts-node src/app.ts",
+    "build": "tsc",
     "eslint": "eslint --fix .",
     "prettier": "prettier --write .",
     "prepare": "husky install"
@@ -14,10 +15,12 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "module-alias": "^2.2.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.5"
+    "typeorm": "^0.3.5",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",

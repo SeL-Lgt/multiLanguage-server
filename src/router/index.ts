@@ -1,8 +1,10 @@
 import express from 'express';
-import project from './project/index';
+import projectRouter from './project';
+import markRouter from './mark';
 
 const router = express.Router();
 
-router.use('/project', project);
+router.use('/mark', markRouter);
+router.use('/project', projectRouter);
 
 export default router;
