@@ -27,7 +27,10 @@
       "@/*": ["src/*"],
       "@dao/*": ["src/dao/*"],
       "@router/*": ["src/router/*"],
-      "@services/*": ["src/services/*"]
+      "@services/*": ["src/services/*"],
+      "@util/*": ["src/util/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@exceptions/*": ["src/exceptions/*"]
     }
   },
   "exclude": ["node_modules"],

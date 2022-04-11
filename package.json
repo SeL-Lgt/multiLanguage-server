@@ -27,6 +27,7 @@
     "@commitlint/config-conventional": "^16.2.1",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/module-alias": "^2.0.1",
     "@types/morgan": "^1.9.3",
     "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
@@ -46,5 +47,15 @@
     "prettier-eslint": "^13.0.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
+  },
+  "_moduleAliases": {
+    "~": ".",
+    "@": "src",
+    "@dao": "src/dao",
+    "@router": "src/router",
+    "@services": "src/services",
+    "@util": "src/util",
+    "@middleware": "src/middleware",
+    "exceptions": "src/exceptions"
   }
 }

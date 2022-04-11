@@ -3,17 +3,19 @@ import path from 'path';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import router from './router/index';
-import errorHandler from './middleware/error-handler';
 import 'reflect-metadata';
-import myDataSource from './util/app-data-source';
+import 'module-alias/register';
+
+import router from '@router/index';
+import errorHandler from '@middleware/error-handler';
+import dataSource from '@util/app-data-source';
 
 dotenv.config({
   path: path.resolve('envs', `.env.${process.env.NODE_ENV}`),
 });
 const { PORT } = process.env;
 
-myDataSource
+dataSource
   .initialize()
   .then(() => {
     console.log('已连接数据库');
