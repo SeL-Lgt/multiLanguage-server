@@ -26,8 +26,8 @@ const prodDB: DataSourceOptions = {
   namingStrategy: new SnakeNamingStrategy(),
 };
 
-const myDataSource = new DataSource(
+const dataSource = new DataSource(
   process.env.NODE_ENV === 'prod' ? prodDB : devDB,
 );
 
-export default myDataSource;
+export default dataSource;

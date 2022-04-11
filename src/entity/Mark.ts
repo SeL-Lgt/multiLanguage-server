@@ -14,11 +14,11 @@ export default class Mark extends Base {
   langText: string;
 
   @Column({ nullable: true })
-  mark: string;
+  remark: string;
 
   /**
    * 是否已使用
    */
   @Column({ default: 0 })
-  isUse: boolean;
+  isUsed: boolean;
 }

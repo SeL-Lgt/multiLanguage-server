@@ -56,6 +56,6 @@
     "@services": "src/services",
     "@util": "src/util",
     "@middleware": "src/middleware",
-    "exceptions": "src/exceptions"
+    "@exceptions": "src/exceptions"
   }
 }
