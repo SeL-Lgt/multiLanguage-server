@@ -14,7 +14,11 @@ export default class MarkServices {
   ) => {
     try {
       const data = await MarkDao.langMarkInit();
-      next({ status: 200, message: '请求成功', data });
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
     } catch (err) {
       next(err);
     }
@@ -35,7 +39,11 @@ export default class MarkServices {
     try {
       const { body } = _req;
       const data = await MarkDao.queryMarkList(body?.isUsed);
-      next({ status: 200, message: '请求成功', data });
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
     } catch (err) {
       next(err);
     }
@@ -56,7 +64,11 @@ export default class MarkServices {
     try {
       const { body } = _req;
       const data = await MarkDao.addMark(body);
-      next({ status: 200, message: '请求成功', data });
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
     } catch (err) {
       next(err);
     }
@@ -77,7 +89,11 @@ export default class MarkServices {
     try {
       const { body } = _req;
       const data = await MarkDao.updateMark(body as Mark);
-      next({ status: 200, message: '请求成功', data });
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
     } catch (err) {
       next(err);
     }
