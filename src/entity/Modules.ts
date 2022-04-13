@@ -1,17 +1,17 @@
 import { Column, Index, PrimaryGeneratedColumn } from 'typeorm';
 import Base from './Base';
 
-export default class Project extends Base {
+export default class Modules extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   @Index({ unique: true })
-  projectKey: string;
+  modulesKey: string;
 
   @Column()
-  projectName: string;
+  modulesName: string;
 
   @Column()
-  mark: string;
+  remark: string;
 }
