@@ -6,7 +6,7 @@ const router = express.Router();
 /**
  * 语言标识列表初始化
  */
-router.post('/langMarkInit', MarkServices.langMarkInit);
+router.get('/langMarkInit', MarkServices.langMarkInit);
 
 /**
  * 查询语言标识列表

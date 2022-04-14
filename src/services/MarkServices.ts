@@ -63,7 +63,7 @@ export default class MarkServices {
   ) => {
     try {
       const { body } = _req;
-      const data = await MarkDao.addMark(body);
+      const data = await MarkDao.addMark(body as Mark);
       next({
         status: 200,
         message: '请求成功',

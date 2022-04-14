@@ -17,11 +17,11 @@ const devDB: DataSourceOptions = {
 const prodDB: DataSourceOptions = {
   name: 'prod',
   type: 'mysql',
-  host: 'localhost',
+  host: '106.55.241.206',
   port: 3306,
-  username: 'root',
-  password: 'admin',
-  database: 'db2',
+  username: 'test',
+  password: '981002',
+  database: 'language_i18n',
   entities: ['./src/entity/*{.js,.ts}'],
   namingStrategy: new SnakeNamingStrategy(),
 };

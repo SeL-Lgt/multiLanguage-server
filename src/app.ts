@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 // 挂载路由组件
-app.use(router);
+app.use('/api', router);
 
 // 挂载统一处理服务端错误中间件
 app.use(errorHandler());

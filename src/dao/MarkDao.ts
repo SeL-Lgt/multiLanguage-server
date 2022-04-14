@@ -36,7 +36,7 @@ export default class MarkDao {
    * @param mark
    */
   static addMark = (mark: Mark) => {
-    const { id, remark } = mark;
+    const { langKey, remark } = mark;
     const data = dataSource
       .createQueryBuilder()
       .update(Mark)
@@ -45,7 +45,7 @@ export default class MarkDao {
         remark,
         updateUser: 'admin',
       })
-      .where('id = :id', { id })
+      .where('langKey = :langKey', { langKey })
       .execute();
     return data;
   };
@@ -55,7 +55,7 @@ export default class MarkDao {
    * @param mark
    */
   static updateMark = (mark: Mark) => {
-    const { id, remark } = mark;
+    const { langKey, remark } = mark;
     const data = dataSource
       .createQueryBuilder()
       .update(Mark)
@@ -63,7 +63,7 @@ export default class MarkDao {
         remark,
         updateUser: 'admin',
       })
-      .where('id = :id', { id })
+      .where('langKey = :langKey', { langKey })
       .execute();
     return data;
   };
