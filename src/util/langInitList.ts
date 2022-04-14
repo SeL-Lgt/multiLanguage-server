@@ -7,16 +7,8 @@ type LanguageListType = {
 };
 const languageList: Array<LanguageListType> = [
   {
-    langKey: 'af',
-    langText: '南非语',
-  },
-  {
     langKey: 'af-ZA',
     langText: '南非语',
-  },
-  {
-    langKey: 'ar',
-    langText: '阿拉伯语',
   },
   {
     langKey: 'ar-AE',
@@ -83,24 +75,12 @@ const languageList: Array<LanguageListType> = [
     langText: '阿拉伯语(也门)',
   },
   {
-    langKey: 'az',
-    langText: '阿塞拜疆语',
-  },
-  {
     langKey: 'az-AZ',
     langText: '阿塞拜疆语(拉丁文，西里尔文)',
   },
   {
-    langKey: 'be',
-    langText: '比利时语',
-  },
-  {
     langKey: 'be-BY',
     langText: '比利时语',
-  },
-  {
-    langKey: 'bg',
-    langText: '保加利亚语',
   },
   {
     langKey: 'bg-BG',
@@ -111,40 +91,20 @@ const languageList: Array<LanguageListType> = [
     langText: '波斯尼亚语(拉丁文，波斯尼亚和黑塞哥维那)',
   },
   {
-    langKey: 'ca',
-    langText: '加泰隆语',
-  },
-  {
     langKey: 'ca-ES',
     langText: '加泰隆语',
-  },
-  {
-    langKey: 'cs',
-    langText: '捷克语',
   },
   {
     langKey: 'cs-CZ',
     langText: '捷克语',
   },
   {
-    langKey: 'cy',
-    langText: '威尔士语',
-  },
-  {
     langKey: 'cy-GB',
     langText: '威尔士语',
   },
   {
-    langKey: 'da',
-    langText: '丹麦语',
-  },
-  {
     langKey: 'da-DK',
     langText: '丹麦语',
-  },
-  {
-    langKey: 'de',
-    langText: '德语',
   },
   {
     langKey: 'de-AT',
@@ -167,24 +127,12 @@ const languageList: Array<LanguageListType> = [
     langText: '德语(卢森堡)',
   },
   {
-    langKey: 'dv',
-    langText: '第维埃语',
-  },
-  {
     langKey: 'dv-MV',
     langText: '第维埃语',
   },
   {
-    langKey: 'el',
-    langText: '希腊语',
-  },
-  {
     langKey: 'el-GR',
     langText: '希腊语',
-  },
-  {
-    langKey: 'en',
-    langText: '英语',
   },
   {
     langKey: 'en-AU',
@@ -237,14 +185,6 @@ const languageList: Array<LanguageListType> = [
   {
     langKey: 'en-ZW',
     langText: '英语(津巴布韦)',
-  },
-  {
-    langKey: 'eo',
-    langText: '世界语',
-  },
-  {
-    langKey: 'es',
-    langText: '西班牙语',
   },
   {
     langKey: 'es-AR',
@@ -323,48 +263,24 @@ const languageList: Array<LanguageListType> = [
     langText: '西班牙语(委内瑞拉)',
   },
   {
-    langKey: 'et',
-    langText: '爱沙尼亚语',
-  },
-  {
     langKey: 'et-EE',
     langText: '爱沙尼亚语',
-  },
-  {
-    langKey: 'eu',
-    langText: '巴士克语',
   },
   {
     langKey: 'eu-ES',
     langText: '巴士克语',
   },
   {
-    langKey: 'fa',
-    langText: '法斯语',
-  },
-  {
     langKey: 'fa-IR',
     langText: '法斯语',
-  },
-  {
-    langKey: 'fi',
-    langText: '芬兰语',
   },
   {
     langKey: 'fi-FI',
     langText: '芬兰语',
   },
   {
-    langKey: 'fo',
-    langText: '法罗语',
-  },
-  {
     langKey: 'fo-FO',
     langText: '法罗语',
-  },
-  {
-    langKey: 'fr',
-    langText: '法语',
   },
   {
     langKey: 'fr-BE',
@@ -391,40 +307,20 @@ const languageList: Array<LanguageListType> = [
     langText: '法语(摩纳哥)',
   },
   {
-    langKey: 'gl',
-    langText: '加里西亚语',
-  },
-  {
     langKey: 'gl-ES',
     langText: '加里西亚语',
-  },
-  {
-    langKey: 'gu',
-    langText: '古吉拉特语',
   },
   {
     langKey: 'gu-IN',
     langText: '古吉拉特语',
   },
   {
-    langKey: 'he',
-    langText: '希伯来语',
-  },
-  {
     langKey: 'he-IL',
     langText: '希伯来语',
   },
   {
-    langKey: 'hi',
-    langText: '印地语',
-  },
-  {
     langKey: 'hi-IN',
     langText: '印地语',
-  },
-  {
-    langKey: 'hr',
-    langText: '克罗地亚语',
   },
   {
     langKey: 'hr-BA',
@@ -435,40 +331,20 @@ const languageList: Array<LanguageListType> = [
     langText: '克罗地亚语',
   },
   {
-    langKey: 'hu',
-    langText: '匈牙利语',
-  },
-  {
     langKey: 'hu-HU',
     langText: '匈牙利语',
-  },
-  {
-    langKey: 'hy',
-    langText: '亚美尼亚语',
   },
   {
     langKey: 'hy-AM',
     langText: '亚美尼亚语',
   },
   {
-    langKey: 'id',
-    langText: '印度尼西亚语',
-  },
-  {
     langKey: 'id-ID',
     langText: '印度尼西亚语',
   },
   {
-    langKey: 'is',
-    langText: '冰岛语',
-  },
-  {
     langKey: 'is-IS',
     langText: '冰岛语',
-  },
-  {
-    langKey: 'it',
-    langText: '意大利语',
   },
   {
     langKey: 'it-CH',
@@ -479,112 +355,56 @@ const languageList: Array<LanguageListType> = [
     langText: '意大利语(意大利)',
   },
   {
-    langKey: 'ja',
-    langText: '日语',
-  },
-  {
     langKey: 'ja-JP',
     langText: '日语',
-  },
-  {
-    langKey: 'ka',
-    langText: '格鲁吉亚语',
   },
   {
     langKey: 'ka-GE',
     langText: '格鲁吉亚语',
   },
   {
-    langKey: 'kk',
-    langText: '哈萨克语',
-  },
-  {
     langKey: 'kk-KZ',
     langText: '哈萨克语',
-  },
-  {
-    langKey: 'kn',
-    langText: '卡纳拉语',
   },
   {
     langKey: 'kn-IN',
     langText: '卡纳拉语',
   },
   {
-    langKey: 'ko',
-    langText: '朝鲜语',
-  },
-  {
     langKey: 'ko-KR',
     langText: '朝鲜语',
-  },
-  {
-    langKey: 'kok',
-    langText: '孔卡尼语',
   },
   {
     langKey: 'kok-IN',
     langText: '孔卡尼语',
   },
   {
-    langKey: 'ky',
-    langText: '吉尔吉斯语',
-  },
-  {
     langKey: 'ky-KG',
     langText: '吉尔吉斯语(西里尔文)',
-  },
-  {
-    langKey: 'lt',
-    langText: '立陶宛语',
   },
   {
     langKey: 'lt-LT',
     langText: '立陶宛语',
   },
   {
-    langKey: 'lv',
-    langText: '拉脱维亚语',
-  },
-  {
     langKey: 'lv-LV',
     langText: '拉脱维亚语',
-  },
-  {
-    langKey: 'mi',
-    langText: '毛利语',
   },
   {
     langKey: 'mi-NZ',
     langText: '毛利语',
   },
   {
-    langKey: 'mk',
-    langText: '马其顿语',
-  },
-  {
     langKey: 'mk-MK',
     langText: '马其顿语(FYROM)',
-  },
-  {
-    langKey: 'mn',
-    langText: '蒙古语',
   },
   {
     langKey: 'mn-MN',
     langText: '蒙古语(西里尔文)',
   },
   {
-    langKey: 'mr',
-    langText: '马拉地语',
-  },
-  {
     langKey: 'mr-IN',
     langText: '马拉地语',
-  },
-  {
-    langKey: 'ms',
-    langText: '马来语',
   },
   {
     langKey: 'ms-BN',
@@ -595,24 +415,12 @@ const languageList: Array<LanguageListType> = [
     langText: '马来语(马来西亚)',
   },
   {
-    langKey: 'mt',
-    langText: '马耳他语',
-  },
-  {
     langKey: 'mt-MT',
     langText: '马耳他语',
   },
   {
-    langKey: 'nb',
-    langText: '挪威语(伯克梅尔)',
-  },
-  {
     langKey: 'nb-NO',
     langText: '挪威语(伯克梅尔)(挪威)',
-  },
-  {
-    langKey: 'nl',
-    langText: '荷兰语',
   },
   {
     langKey: 'nl-BE',
@@ -627,32 +435,16 @@ const languageList: Array<LanguageListType> = [
     langText: '挪威语(尼诺斯克)(挪威)',
   },
   {
-    langKey: 'ns',
-    langText: '北梭托语',
-  },
-  {
     langKey: 'ns-ZA',
     langText: '北梭托语',
-  },
-  {
-    langKey: 'pa',
-    langText: '旁遮普语',
   },
   {
     langKey: 'pa-IN',
     langText: '旁遮普语',
   },
   {
-    langKey: 'pl',
-    langText: '波兰语',
-  },
-  {
     langKey: 'pl-PL',
     langText: '波兰语',
-  },
-  {
-    langKey: 'pt',
-    langText: '葡萄牙语',
   },
   {
     langKey: 'pt-BR',
@@ -661,10 +453,6 @@ const languageList: Array<LanguageListType> = [
   {
     langKey: 'pt-PT',
     langText: '葡萄牙语(葡萄牙)',
-  },
-  {
-    langKey: 'qu',
-    langText: '克丘亚语',
   },
   {
     langKey: 'qu-BO',
@@ -679,32 +467,16 @@ const languageList: Array<LanguageListType> = [
     langText: '克丘亚语(秘鲁)',
   },
   {
-    langKey: 'ro',
-    langText: '罗马尼亚语',
-  },
-  {
     langKey: 'ro-RO',
     langText: '罗马尼亚语',
-  },
-  {
-    langKey: 'ru',
-    langText: '俄语',
   },
   {
     langKey: 'ru-RU',
     langText: '俄语',
   },
   {
-    langKey: 'sa',
-    langText: '梵文',
-  },
-  {
     langKey: 'sa-IN',
     langText: '梵文',
-  },
-  {
-    langKey: 'se',
-    langText: '北萨摩斯语',
   },
   {
     langKey: 'se-FI',
@@ -719,24 +491,12 @@ const languageList: Array<LanguageListType> = [
     langText: '北萨摩斯语(瑞典)，律勒欧萨摩斯语(瑞典)，南萨摩斯语(瑞典)',
   },
   {
-    langKey: 'sk',
-    langText: '斯洛伐克语',
-  },
-  {
     langKey: 'sk-SK',
     langText: '斯洛伐克语',
   },
   {
-    langKey: 'sl',
-    langText: '斯洛文尼亚语',
-  },
-  {
     langKey: 'sl-SI',
     langText: '斯洛文尼亚语',
-  },
-  {
-    langKey: 'sq',
-    langText: '阿尔巴尼亚语',
   },
   {
     langKey: 'sq-AL',
@@ -751,10 +511,6 @@ const languageList: Array<LanguageListType> = [
     langText: '塞尔维亚(拉丁，西里尔文)',
   },
   {
-    langKey: 'sv',
-    langText: '瑞典语',
-  },
-  {
     langKey: 'sv-FI',
     langText: '瑞典语(芬兰)',
   },
@@ -763,124 +519,60 @@ const languageList: Array<LanguageListType> = [
     langText: '瑞典语',
   },
   {
-    langKey: 'sw',
-    langText: '斯瓦希里语',
-  },
-  {
     langKey: 'sw-KE',
     langText: '斯瓦希里语',
-  },
-  {
-    langKey: 'syr',
-    langText: '叙利亚语',
   },
   {
     langKey: 'syr-SY',
     langText: '叙利亚语',
   },
   {
-    langKey: 'ta',
-    langText: '泰米尔语',
-  },
-  {
     langKey: 'ta-IN',
     langText: '泰米尔语',
-  },
-  {
-    langKey: 'te',
-    langText: '泰卢固语',
   },
   {
     langKey: 'te-IN',
     langText: '泰卢固语',
   },
   {
-    langKey: 'th',
-    langText: '泰语',
-  },
-  {
     langKey: 'th-TH',
     langText: '泰语',
-  },
-  {
-    langKey: 'tl',
-    langText: '塔加路语',
   },
   {
     langKey: 'tl-PH',
     langText: '塔加路语(菲律宾)',
   },
   {
-    langKey: 'tn',
-    langText: '茨瓦纳语',
-  },
-  {
     langKey: 'tn-ZA',
     langText: '茨瓦纳语',
-  },
-  {
-    langKey: 'tr',
-    langText: '土耳其语',
   },
   {
     langKey: 'tr-TR',
     langText: '土耳其语',
   },
   {
-    langKey: 'ts',
-    langText: '宗加语',
-  },
-  {
-    langKey: 'tt',
-    langText: '鞑靼语',
-  },
-  {
     langKey: 'tt-RU',
     langText: '鞑靼语',
-  },
-  {
-    langKey: 'uk',
-    langText: '乌克兰语',
   },
   {
     langKey: 'uk-UA',
     langText: '乌克兰语',
   },
   {
-    langKey: 'ur',
-    langText: '乌都语',
-  },
-  {
     langKey: 'ur-PK',
     langText: '乌都语',
-  },
-  {
-    langKey: 'uz',
-    langText: '乌兹别克语',
   },
   {
     langKey: 'uz-UZ',
     langText: '乌兹别克语(拉丁文，西里尔文)',
   },
   {
-    langKey: 'vi',
-    langText: '越南语',
-  },
-  {
     langKey: 'vi-VN',
     langText: '越南语',
   },
   {
-    langKey: 'xh',
-    langText: '班图语',
-  },
-  {
     langKey: 'xh-ZA',
     langText: '班图语',
-  },
-  {
-    langKey: 'zh',
-    langText: '中文',
   },
   {
     langKey: 'zh-CN',
@@ -901,10 +593,6 @@ const languageList: Array<LanguageListType> = [
   {
     langKey: 'zh-TW',
     langText: '中文(繁体)',
-  },
-  {
-    langKey: 'zu',
-    langText: '祖鲁语',
   },
   {
     langKey: 'zu-ZA',
