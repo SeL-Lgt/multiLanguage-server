@@ -1,6 +1,7 @@
-import { Column, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import Base from './Base';
 
+@Entity('i18n_modules')
 export default class Modules extends Base {
   @PrimaryGeneratedColumn()
   id: number;

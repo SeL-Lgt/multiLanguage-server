@@ -18,12 +18,13 @@ export default class ModulesDao {
 
   /**
    * 查询所有模块列表
+   * 详情信息与模块文案数量
    */
   static queryModulesList = (modules: Modules) => {
-    const { modulesName } = modules;
+    const { modulesKey } = modules;
     let data = dataSource.createQueryBuilder(Modules, 'modules');
-    if (modulesName !== undefined) {
-      data = data.where('modules.modulesName = :modulesName', { modulesName });
+    if (modulesKey !== undefined) {
+      data = data.where('modules.modulesKey = :modulesKey', { modulesKey });
     }
     return data.getMany();
   };
@@ -33,16 +34,28 @@ export default class ModulesDao {
    * @param modules
    */
   static updateModules = (modules: Modules) => {
-    const { id, remark, updateUser } = modules;
+    const { id, remark, modulesName, updateUser } = modules;
     const data = dataSource
       .createQueryBuilder()
       .update(Modules)
       .set({
+        modulesName,
         remark,
         updateUser,
       })
       .where('id = :id', { id })
       .execute();
     return data;
+  };
+
+  /**
+   * 查询所有模块名字
+   * 仅查询名字
+   */
+  static queryModulesNameList = () => {
+    const data = dataSource
+      .createQueryBuilder(Modules, 'modules')
+      .select(['modules.modulesKey']);
+    return data.getMany();
   };
 }

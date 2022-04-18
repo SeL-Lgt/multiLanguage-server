@@ -11,12 +11,17 @@ router.post('/addMoules', ModulesServices.addModules);
 /**
  * 查询所有模块列表
  */
-router.post('/queryModulesList', ModulesServices.queryModulesList);
+router.get('/queryModulesList', ModulesServices.queryModulesList);
 
 /**
  * 更新父模块内容
  */
 router.post('/updateModules', ModulesServices.updateModules);
+
+/**
+ * 查询所有模块名字
+ */
+router.get('/queryModulesNameList', ModulesServices.queryModulesNameList);
 
 const modulesRouter = router;
 
