@@ -6,7 +6,7 @@ const router = express.Router();
 /**
  * 新增父模块信息
  */
-router.post('/addMoules', ModulesServices.addModules);
+router.post('/addModules', ModulesServices.addModules);
 
 /**
  * 查询所有模块列表

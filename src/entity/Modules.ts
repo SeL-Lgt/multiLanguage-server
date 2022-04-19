@@ -1,12 +1,21 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Generated,
+  Index,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
+import SubModules from '@/entity/SubModules';
 import Base from './Base';
 
 @Entity('i18n_modules')
 export default class Modules extends Base {
-  @PrimaryGeneratedColumn()
+  @Column()
+  @Generated('uuid')
   id: number;
 
-  @Column()
+  @PrimaryColumn()
   @Index({ unique: true })
   modulesKey: string;
 
@@ -15,4 +24,7 @@ export default class Modules extends Base {
 
   @Column()
   remark: string;
+
+  @OneToMany(() => SubModules, (subModules) => subModules.modules)
+  subModules: SubModules[];
 }

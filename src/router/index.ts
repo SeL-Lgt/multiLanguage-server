@@ -1,11 +1,13 @@
 import express from 'express';
-import moduleRouter from './modules';
-import markRouter from './mark';
+import markRouter from '@router/mark';
+import moduleRouter from '@router/modules';
+import subModulesRouter from '@router/subModules';
 
 const router = express.Router();
 
 router.use('/mark', markRouter);
 router.use('/module', moduleRouter);
+router.use('/subModule', subModulesRouter);
 
 router.use('*', (_req, _res, next) => {
   next({ status: 404, message: '请求路径不正确' });
