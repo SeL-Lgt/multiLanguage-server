@@ -27,6 +27,10 @@ export default class SubModulesDao {
     return data.getMany();
   };
 
+  /**
+   * 删除子模块
+   * @param subModules
+   */
   static deleteSubModules = (subModules: SubModules) => {
     const { modulesKey, subModulesKey } = subModules;
     const data = dataSource
@@ -37,5 +41,17 @@ export default class SubModulesDao {
       .where('subModulesKey = :subModulesKey', { subModulesKey })
       .execute();
     return data;
+  };
+
+  /**
+   * 查询子模块名字列表
+   */
+  static querySubModulesNameList = (subModules: SubModules) => {
+    const { modulesKey } = subModules;
+    const data = dataSource
+      .createQueryBuilder(SubModules, 'subModules')
+      .where('subModules.modulesKey = :modulesKey', { modulesKey })
+      .select(['subModules.modulesKey', 'subModules.subModulesKey']);
+    return data.getMany();
   };
 }

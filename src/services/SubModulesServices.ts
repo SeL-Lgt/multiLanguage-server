@@ -76,4 +76,30 @@ export default class SubModulesServices {
       next(err);
     }
   };
+
+  /**
+   * 查询子模块名字列表
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static querySubModulesNameList = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { query } = _req;
+      const data = await SubModulesDao.querySubModulesNameList(
+        query as unknown as SubModules,
+      );
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

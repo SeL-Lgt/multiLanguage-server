@@ -18,6 +18,14 @@ router.get('/querySubModulesList', SubModulesServices.querySubModulesList);
  */
 router.delete('/deleteSubModules', SubModulesServices.deleteSubModules);
 
+/**
+ * 查询子模块名字列表
+ */
+router.get(
+  '/querySubModulesNameList',
+  SubModulesServices.querySubModulesNameList,
+);
+
 const subModulesRouter = router;
 
 export default subModulesRouter;
