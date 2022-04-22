@@ -1,11 +1,4 @@
-import {
-  Column,
-  Entity,
-  Generated,
-  Index,
-  OneToMany,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
 import SubModules from '@/entity/SubModules';
 import Base from './Base';
 
@@ -15,8 +8,7 @@ export default class Modules extends Base {
   @Generated('uuid')
   id: number;
 
-  @PrimaryColumn()
-  @Index({ unique: true })
+  @PrimaryColumn({ type: 'varchar', length: 200 })
   modulesKey: string;
 
   @Column()

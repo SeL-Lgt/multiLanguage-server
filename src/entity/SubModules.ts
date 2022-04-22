@@ -15,15 +15,15 @@ export default class SubModules extends Base {
   @Generated('uuid')
   id: number;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'varchar', length: 200 })
   modulesKey: string;
 
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'varchar', length: 200 })
   subModulesKey: string;
 
-  @ManyToOne(() => Modules, {})
+  @ManyToOne(() => Modules)
   @JoinColumn({
     name: 'modules_key',
   })
-  modules: Modules[];
+  modules: Modules;
 }

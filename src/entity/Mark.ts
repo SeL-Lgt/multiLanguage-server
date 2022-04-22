@@ -1,4 +1,4 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import Base from './Base';
 
 @Entity('i18n_mark')
@@ -6,8 +6,7 @@ export default class Mark extends Base {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  @Index({ unique: true })
+  @Column({ type: 'varchar', length: 50, unique: true })
   langKey: string;
 
   @Column()
