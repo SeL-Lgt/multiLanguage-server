@@ -38,7 +38,7 @@ export default class SubModulesDao {
       .delete()
       .from(SubModules)
       .where('modulesKey = :modulesKey', { modulesKey })
-      .where('subModulesKey = :subModulesKey', { subModulesKey })
+      .andWhere('subModulesKey = :subModulesKey', { subModulesKey })
       .execute();
     return data;
   };

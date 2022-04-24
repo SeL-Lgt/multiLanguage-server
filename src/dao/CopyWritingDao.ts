@@ -27,22 +27,22 @@ export default class CopyWritingDao {
       .createQueryBuilder(CopyWriting, 'copyWriting')
       .where('copyWriting.modulesKey = :modulesKey', { modulesKey });
     if (subModulesKey) {
-      data = data.where('copyWriting.subModulesKey = :subModulesKey', {
+      data = data.andWhere('copyWriting.subModulesKey = :subModulesKey', {
         subModulesKey,
       });
     }
     if (copyKey) {
-      data = data.where('copyWriting.copyKey = :copyKey', {
+      data = data.andWhere('copyWriting.copyKey = :copyKey', {
         copyKey,
       });
     }
     if (langKey) {
-      data = data.where('copyWriting.langKey = :langKey', {
+      data = data.andWhere('copyWriting.langKey = :langKey', {
         langKey,
       });
     }
     if (langText) {
-      data = data.where('copyWriting.langText like :langText', {
+      data = data.andWhere('copyWriting.langText like :langText', {
         langText: `%${langText}%`,
       });
     }
