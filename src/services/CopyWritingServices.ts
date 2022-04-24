@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import CopyWriting from '@/entity/CopyWriting';
+import CopyWriting, { LangList } from '@/entity/CopyWriting';
 import CopyWritingDao from '@dao/CopyWritingDao';
 // import MarkDao from '@dao/MarkDao';
 // import CopyWritingDao from '@dao/CopyWritingDao';
@@ -54,7 +54,7 @@ export default class CopyWritingServices {
   };
 
   /**
-   * 查询语言文案
+   * 查询语言文案列表
    * @param _req
    * @param _res
    * @param next
@@ -73,6 +73,49 @@ export default class CopyWritingServices {
         status: 200,
         message: '请求成功',
         data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * 根据modulesKey、subModulesKey、copyKey查询文案详情
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static queryCopyWritingByCopyKey = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { query } = _req;
+      const { modulesKey, subModulesKey, copyKey } =
+        query as unknown as CopyWriting;
+      const copyWritingList = await CopyWritingDao.queryCopyWriting({
+        modulesKey,
+        subModulesKey,
+        copyKey,
+      } as CopyWriting);
+      console.log(copyWritingList);
+      const copyWritingItem = new CopyWriting();
+      const langList: Array<LangList> = [];
+      copyWritingList?.forEach((item) => {
+        copyWritingItem.copyKey = item.copyKey;
+        copyWritingItem.modulesKey = item.modulesKey;
+        copyWritingItem.subModulesKey = item.subModulesKey;
+        langList.push({
+          langKey: item.langKey,
+          langText: item.langText,
+        });
+        copyWritingItem.langList = langList;
+      });
+      next({
+        status: 200,
+        message: '请求成功',
+        data: copyWritingItem,
       });
     } catch (err) {
       next(err);

@@ -1,9 +1,9 @@
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
 import Base from './Base';
 
-type langList = {
-  langKey: '';
-  langText: '';
+export type LangList = {
+  langKey: string;
+  langText: string;
 };
 
 @Entity('i18n_copywriting')
@@ -27,5 +27,5 @@ export default class CopyWriting extends Base {
   @Column()
   langText: string;
 
-  langList: Array<langList>;
+  langList: Array<LangList>;
 }

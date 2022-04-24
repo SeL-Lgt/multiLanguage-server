@@ -5,6 +5,10 @@ const router = express();
 
 router.post('/addCopyWriting', CopyWritingServices.addCopyWriting);
 router.get('/queryCopyWriting', CopyWritingServices.queryCopyWriting);
+router.get(
+  '/queryCopyWritingByCopyKey',
+  CopyWritingServices.queryCopyWritingByCopyKey,
+);
 
 const copyWritingRouter = router;
 
