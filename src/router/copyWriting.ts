@@ -9,6 +9,7 @@ router.get(
   '/queryCopyWritingByCopyKey',
   CopyWritingServices.queryCopyWritingByCopyKey,
 );
+router.delete('/deleteCopyWriting', CopyWritingServices.deleteCopyWriting);
 
 const copyWritingRouter = router;
 

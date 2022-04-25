@@ -121,4 +121,28 @@ export default class CopyWritingServices {
       next(err);
     }
   };
+
+  /**
+   * 删除指定文案
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static deleteCopyWriting = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { body } = _req;
+      const data = await CopyWritingDao.deleteCopyWriting(body);
+      next({
+        status: 200,
+        message: '请求成功',
+        data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
 }

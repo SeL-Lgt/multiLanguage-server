@@ -48,4 +48,31 @@ export default class CopyWritingDao {
     }
     return data.getMany();
   };
+
+  /**
+   * 删除指定文案
+   * @param copyWriting
+   */
+  static deleteCopyWriting = (copyWriting: CopyWriting) => {
+    const { modulesKey, subModulesKey, langKey, copyKey, langText } =
+      copyWriting;
+    let data = dataSource
+      .createQueryBuilder()
+      .delete()
+      .from(CopyWriting)
+      .where('modulesKey = :modulesKey', { modulesKey })
+      .andWhere('subModulesKey = :subModulesKey', {
+        subModulesKey,
+      });
+    if (langKey) {
+      data = data.andWhere('langKey = :langKey', { langKey });
+    }
+    if (copyKey) {
+      data = data.andWhere('copyKey = :copyKey', { copyKey });
+    }
+    if (langText) {
+      data = data.andWhere('langText = :langText', { langText });
+    }
+    return data.execute();
+  };
 }
