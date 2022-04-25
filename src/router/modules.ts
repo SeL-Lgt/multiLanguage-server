@@ -16,7 +16,7 @@ router.get('/queryModulesList', ModulesServices.queryModulesList);
 /**
  * 更新父模块内容
  */
-router.post('/updateModules', ModulesServices.updateModules);
+router.put('/updateModules', ModulesServices.updateModules);
 
 /**
  * 查询所有模块名字
