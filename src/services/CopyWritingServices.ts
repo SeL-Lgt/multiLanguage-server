@@ -21,6 +21,21 @@ export default class CopyWritingServices {
       const { modulesKey, subModulesKey, copyKey, langList } =
         body as CopyWriting;
 
+      const reqLangList = langList.map((item: LangList) => item.langKey);
+
+      // 判断是否存在重复key值
+      if (
+        reqLangList.filter(
+          (i: string) => reqLangList.indexOf(i) !== reqLangList.lastIndexOf(i),
+        ).length > 0
+      ) {
+        next({
+          status: 500,
+          message: '存在重复原类型',
+        });
+        return;
+      }
+
       // TODO:校验语言类型是否存在
       // const markList = await MarkDao.queryMarkList();
       // const usedMarkList = markList.map((item) => item.langKey);
@@ -45,7 +60,7 @@ export default class CopyWritingServices {
       const data = await CopyWritingDao.addCopyWriting(temp);
       next({
         status: 200,
-        message: '请求成功',
+        message: '添加成功',
         data,
       });
     } catch (err) {
@@ -99,7 +114,6 @@ export default class CopyWritingServices {
         subModulesKey,
         copyKey,
       } as CopyWriting);
-      console.log(copyWritingList);
       const copyWritingItem = new CopyWriting();
       const langList: Array<LangList> = [];
       copyWritingList?.forEach((item) => {
@@ -140,6 +154,90 @@ export default class CopyWritingServices {
         status: 200,
         message: '请求成功',
         data,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * 文案更新
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static updateCopyWriting = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { body } = _req;
+      const { modulesKey, subModulesKey, copyKey, langList } = body;
+      const oldCopyWriting = await CopyWritingDao.queryCopyWriting(
+        body as CopyWriting,
+      );
+      const oldLangList = oldCopyWriting.map((item) => item.langKey);
+      const reqLangList = langList.map((item: LangList) => item.langKey);
+
+      // 判断是否存在重复key值
+      if (
+        reqLangList.filter(
+          (i: string) => reqLangList.indexOf(i) !== reqLangList.lastIndexOf(i),
+        ).length > 0
+      ) {
+        next({
+          status: 500,
+          message: '存在重复原类型',
+        });
+        return;
+      }
+
+      // 数据库语言类型 与 传入语言类型 进行比较
+      // reqLangList.indexOf(item)为-1，则为删除的语言类型
+      const deleteLangList = oldLangList.filter(
+        (item: string) => reqLangList.indexOf(item) === -1,
+      );
+
+      // 传入语言类型 与 数据库语言类型 进行比较
+      // oldLangList.indexOf(item)为-1，则为新增的语言类型
+      const addLangList = reqLangList.filter(
+        (item: string) => oldLangList.indexOf(item) === -1,
+      );
+
+      // 传入语言类型 与 数据库语言类型 进行比较
+      // oldLangList.indexOf(item)>-1，则为修改的语言类型
+      const updateList = reqLangList.filter(
+        (item: string) => oldLangList.indexOf(item) > -1,
+      );
+
+      deleteLangList.forEach((item) => {
+        const dataDao = new CopyWriting();
+        dataDao.copyKey = copyKey;
+        dataDao.modulesKey = modulesKey;
+        dataDao.subModulesKey = subModulesKey;
+        dataDao.langKey = item;
+        CopyWritingDao.deleteCopyWriting(dataDao);
+      });
+
+      langList.forEach((item: LangList) => {
+        const dataDao = new CopyWriting();
+        dataDao.copyKey = copyKey;
+        dataDao.modulesKey = modulesKey;
+        dataDao.subModulesKey = subModulesKey;
+        dataDao.langKey = item.langKey;
+        dataDao.langText = item.langText;
+        if (addLangList.indexOf(item.langKey) > -1) {
+          CopyWritingDao.addCopyWriting(dataDao);
+        }
+        if (updateList.indexOf(item.langKey) > -1) {
+          CopyWritingDao.updateCopyWriting(dataDao);
+        }
+      });
+
+      next({
+        status: 200,
+        message: `新增文案类型${addLangList.length},修改文案类型${updateList.length},删除文案类型${deleteLangList.length}`,
       });
     } catch (err) {
       next(err);

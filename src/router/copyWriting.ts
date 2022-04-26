@@ -10,6 +10,7 @@ router.get(
   CopyWritingServices.queryCopyWritingByCopyKey,
 );
 router.delete('/deleteCopyWriting', CopyWritingServices.deleteCopyWriting);
+router.put('/updateCopyWriting', CopyWritingServices.updateCopyWriting);
 
 const copyWritingRouter = router;
 

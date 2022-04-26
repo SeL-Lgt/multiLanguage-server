@@ -75,4 +75,31 @@ export default class CopyWritingDao {
     }
     return data.execute();
   };
+
+  /**
+   * 文案更新
+   * @param copyWriting
+   */
+  static updateCopyWriting = (copyWriting: CopyWriting) => {
+    const { modulesKey, subModulesKey, langKey, copyKey, langText } =
+      copyWriting;
+    const data = dataSource
+      .createQueryBuilder()
+      .update(CopyWriting)
+      .set({
+        langText,
+        updateUser: 'admin',
+      })
+      .where('modulesKey = :modulesKey', { modulesKey })
+      .andWhere('subModulesKey = :subModulesKey', {
+        subModulesKey,
+      })
+      .andWhere('langKey = :langKey', {
+        langKey,
+      })
+      .andWhere('copyKey = :copyKey', {
+        copyKey,
+      });
+    return data.execute();
+  };
 }
