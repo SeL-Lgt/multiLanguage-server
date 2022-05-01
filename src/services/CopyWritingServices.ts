@@ -1,6 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
-import CopyWriting, { LangList } from '@/entity/CopyWriting';
+import CopyWriting, { CopyWritingError, LangList } from '@/entity/CopyWriting';
 import CopyWritingDao from '@dao/CopyWritingDao';
+import importExcelFromBuffer, {
+  convertKeys,
+} from '@util/importExcelFromBuffer';
+import MarkDao from '@dao/MarkDao';
 // import MarkDao from '@dao/MarkDao';
 // import CopyWritingDao from '@dao/CopyWritingDao';
 
@@ -238,6 +242,83 @@ export default class CopyWritingServices {
       next({
         status: 200,
         message: `新增文案类型${addLangList.length},修改文案类型${updateList.length},删除文案类型${deleteLangList.length}`,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * 上传文案
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static uploadCopy = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const keyMaps = {
+        父模块: 'modulesKey',
+        子模块: 'subModulesKey',
+        对应key值: 'copyKey',
+        语言标识: 'langKey',
+        文案: 'langText',
+      };
+      const { file } = _req;
+      const excelData = importExcelFromBuffer(
+        file?.buffer as unknown as Buffer,
+      );
+      const data: Array<CopyWriting> = convertKeys(excelData, keyMaps);
+      const isUsedMark = (await MarkDao.queryMarkList(true)).map(
+        (item) => item.langKey,
+      );
+      const errorCopyList: Array<CopyWritingError> = [];
+
+      // const promiseRes = [];
+      // // 构建队列
+      // function queue(arr: Array<Promise<any>>) {
+      //   let sequence = Promise.resolve();
+      //   arr?.forEach((item) => {
+      //     sequence = sequence.then(item).then((data) => {
+      //       promiseRes.push(data);
+      //       return promiseRes;
+      //     });
+      //   });
+      //   return sequence;
+      // }
+
+      data.forEach(async (item) => {
+        const { modulesKey, subModulesKey, langKey, copyKey } = item;
+        if (isUsedMark.indexOf(item.langKey) === -1) {
+          const errorMsg = '没有对应语言标识';
+          errorCopyList.push({
+            errorMsg,
+            ...item,
+          });
+          return;
+        }
+        const isHaveCopyWriting = await CopyWritingDao.queryCopyWriting({
+          modulesKey,
+          subModulesKey,
+          langKey,
+          copyKey,
+        } as CopyWriting);
+        if (isHaveCopyWriting) {
+          await CopyWritingDao.updateCopyWriting(item);
+        } else {
+          await CopyWritingDao.addCopyWriting(item);
+        }
+      });
+
+      next({
+        status: 200,
+        message: '请求成功',
+        data: {
+          errorCopyList,
+        },
       });
     } catch (err) {
       next(err);

@@ -29,3 +29,7 @@ export default class CopyWriting extends Base {
 
   langList: Array<LangList>;
 }
+
+export interface CopyWritingError extends CopyWriting {
+  errorMsg: string;
+}
