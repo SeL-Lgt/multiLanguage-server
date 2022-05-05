@@ -46,6 +46,13 @@ export default class CopyWritingDao {
         langText: `%${langText}%`,
       });
     }
+    data.select([
+      'copyWriting.modulesKey',
+      'copyWriting.subModulesKey',
+      'copyWriting.copyKey',
+      'copyWriting.langKey',
+      'copyWriting.langText',
+    ]);
     return data.getMany();
   };
 

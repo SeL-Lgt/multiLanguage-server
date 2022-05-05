@@ -3,14 +3,13 @@ import CopyWriting from '@/entity/CopyWriting';
 import CopyWritingDao from '@dao/CopyWritingDao';
 import importExcelFromBuffer, {
   convertKeys,
+  exportExcelFromData,
 } from '@util/importExcelFromBuffer';
 import MarkDao from '@dao/MarkDao';
 import ModulesDao from '@dao/ModulesDao';
 import SubModulesDao from '@dao/SubModulesDao';
 import SubModules from '@/entity/SubModules';
 import CopyWritingType from '@/type/CopyWritingServices';
-// import MarkDao from '@dao/MarkDao';
-// import CopyWritingDao from '@dao/CopyWritingDao';
 
 export default class CopyWritingServices {
   /**
@@ -328,24 +327,24 @@ export default class CopyWritingServices {
         if (item.modulesKey !== modulesKey) {
           const errorMsg = '不属于该父模块文案';
           eventList.errorList.push({
-            errorMsg,
             ...item,
+            errorMsg,
           });
           continue;
         }
         if (isUsedMark.indexOf(item.langKey) === -1) {
           const errorMsg = '没有对应语言标识';
           eventList.errorList.push({
-            errorMsg,
             ...item,
+            errorMsg,
           });
           continue;
         }
         if (isUsedSubModuleList.indexOf(item.subModulesKey) === -1) {
           const errorMsg = '没有对应的子模块';
           eventList.errorList.push({
-            errorMsg,
             ...item,
+            errorMsg,
           });
           continue;
         }
@@ -360,13 +359,72 @@ export default class CopyWritingServices {
       await CopyWritingDao.addCopyWriting(eventList.createList);
       await CopyWritingDao.updateCopyWritingByList(eventList.updateList);
 
+      const { errorList, updateList, createList } = eventList;
       next({
         status: 200,
-        message: '请求成功',
+        message:
+          errorList.length > 0
+            ? '上传文案成功，但存在错误文案'
+            : '上传文案成功',
         data: {
-          errorList: eventList.errorList,
+          errorList,
+          updateList: updateList.length,
+          createList: createList.length,
         },
       });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * 下载文案
+   * @param _req
+   * @param _res
+   * @param next
+   */
+  static downLoadCopyWriter = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const keyMaps = {
+        modulesKey: '父模块',
+        subModulesKey: '子模块',
+        copyKey: '对应key值',
+        langKey: '语言标识',
+        langText: '文案',
+        errorMsg: '错误信息',
+      };
+      const { body } = _req;
+      const { type, modulesKey } = body;
+      let { data } = body;
+      const excelMimeType =
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+
+      // 查询父模块是否存在数据库中
+      const isHaveModule = (await ModulesDao.queryModulesNameList()).filter(
+        (item) => item.modulesKey === modulesKey,
+      );
+      if (isHaveModule.length < 1) {
+        throw new Error('请选择父模块导出文案');
+      }
+
+      data =
+        type === 'error'
+          ? data
+          : await CopyWritingDao.queryCopyWriting({
+              modulesKey,
+            } as CopyWriting);
+
+      const convertData: Array<CopyWriting> = convertKeys(data, keyMaps);
+      const fileBuffer = exportExcelFromData(
+        convertData,
+        type === 'error' ? '错误文案' : modulesKey,
+      );
+      _res.writeHead(200, { 'Content-Type': excelMimeType });
+      _res.end(Buffer.from(fileBuffer, 'binary'));
     } catch (err) {
       next(err);
     }

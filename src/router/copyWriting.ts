@@ -14,10 +14,11 @@ router.get(
 router.delete('/deleteCopyWriting', CopyWritingServices.deleteCopyWriting);
 router.put('/updateCopyWriting', CopyWritingServices.updateCopyWriting);
 router.post(
-  '/uploadCopy',
+  '/uploadCopyWriting',
   upload.single('file'),
   CopyWritingServices.uploadCopy,
 );
+router.post('/downloadCopyWriting', CopyWritingServices.downLoadCopyWriter);
 
 const copyWritingRouter = router;
 
