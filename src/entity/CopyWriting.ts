@@ -1,10 +1,6 @@
 import { Column, Entity, Generated, PrimaryColumn } from 'typeorm';
+import CopyWritingType from '@/type/CopyWritingServices';
 import Base from './Base';
-
-export type LangList = {
-  langKey: string;
-  langText: string;
-};
 
 @Entity('i18n_copywriting')
 export default class CopyWriting extends Base {
@@ -27,9 +23,5 @@ export default class CopyWriting extends Base {
   @Column()
   langText: string;
 
-  langList: Array<LangList>;
-}
-
-export interface CopyWritingError extends CopyWriting {
-  errorMsg: string;
+  langList: Array<CopyWritingType.LangList>;
 }

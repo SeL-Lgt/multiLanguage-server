@@ -1,10 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
-import CopyWriting, { CopyWritingError, LangList } from '@/entity/CopyWriting';
+import CopyWriting from '@/entity/CopyWriting';
 import CopyWritingDao from '@dao/CopyWritingDao';
 import importExcelFromBuffer, {
   convertKeys,
 } from '@util/importExcelFromBuffer';
 import MarkDao from '@dao/MarkDao';
+import ModulesDao from '@dao/ModulesDao';
+import SubModulesDao from '@dao/SubModulesDao';
+import SubModules from '@/entity/SubModules';
+import CopyWritingType from '@/type/CopyWritingServices';
 // import MarkDao from '@dao/MarkDao';
 // import CopyWritingDao from '@dao/CopyWritingDao';
 
@@ -25,7 +29,9 @@ export default class CopyWritingServices {
       const { modulesKey, subModulesKey, copyKey, langList } =
         body as CopyWriting;
 
-      const reqLangList = langList.map((item: LangList) => item.langKey);
+      const reqLangList = langList.map(
+        (item: CopyWritingType.LangList) => item.langKey,
+      );
 
       // 判断是否存在重复key值
       if (
@@ -119,7 +125,7 @@ export default class CopyWritingServices {
         copyKey,
       } as CopyWriting);
       const copyWritingItem = new CopyWriting();
-      const langList: Array<LangList> = [];
+      const langList: Array<CopyWritingType.LangList> = [];
       copyWritingList?.forEach((item) => {
         copyWritingItem.copyKey = item.copyKey;
         copyWritingItem.modulesKey = item.modulesKey;
@@ -182,7 +188,9 @@ export default class CopyWritingServices {
         body as CopyWriting,
       );
       const oldLangList = oldCopyWriting.map((item) => item.langKey);
-      const reqLangList = langList.map((item: LangList) => item.langKey);
+      const reqLangList = langList.map(
+        (item: CopyWritingType.LangList) => item.langKey,
+      );
 
       // 判断是否存在重复key值
       if (
@@ -224,7 +232,7 @@ export default class CopyWritingServices {
         CopyWritingDao.deleteCopyWriting(dataDao);
       });
 
-      langList.forEach((item: LangList) => {
+      langList.forEach((item: CopyWritingType.LangList) => {
         const dataDao = new CopyWriting();
         dataDao.copyKey = copyKey;
         dataDao.modulesKey = modulesKey;
@@ -267,57 +275,96 @@ export default class CopyWritingServices {
         语言标识: 'langKey',
         文案: 'langText',
       };
-      const { file } = _req;
+      const { file, body } = _req;
+      const { modulesKey } = body;
+      const eventList: CopyWritingType.UploadEvent = {
+        updateList: [],
+        createList: [],
+        errorList: [],
+      };
+      // 查询父模块是否存在数据库中
+      const isHaveModule = (await ModulesDao.queryModulesNameList()).filter(
+        (item) => item.modulesKey === modulesKey,
+      );
+      if (isHaveModule.length < 1) {
+        throw new Error('请选择父模块导入文案');
+      }
+
+      /**
+       * 处理接受数据，给相应key值，并转为Map对象处理Key值重复问题
+       */
       const excelData = importExcelFromBuffer(
         file?.buffer as unknown as Buffer,
       );
-      const data: Array<CopyWriting> = convertKeys(excelData, keyMaps);
+      const convertData: Array<CopyWriting> = convertKeys(excelData, keyMaps);
+      const data = new Map();
+      convertData.forEach((item) => {
+        const { subModulesKey, langKey, copyKey } = item;
+        data.set(`${subModulesKey}_${langKey}_${copyKey}`, item);
+      });
+
+      // 查询该父模块下的所有文案
+      const copyWritingDaoData = await CopyWritingDao.queryCopyWriting({
+        modulesKey,
+      } as CopyWriting);
+      const daoData = new Map();
+      copyWritingDaoData.forEach((item) => {
+        const { subModulesKey, langKey, copyKey } = item;
+        daoData.set(`${subModulesKey}_${langKey}_${copyKey}`, item);
+      });
+
+      // 查询已使用的语言标识
       const isUsedMark = (await MarkDao.queryMarkList(true)).map(
         (item) => item.langKey,
       );
-      const errorCopyList: Array<CopyWritingError> = [];
+      // 查询该父模块下的子模块标识
+      const isUsedSubModuleList = (
+        await SubModulesDao.querySubModulesNameList({
+          modulesKey,
+        } as SubModules)
+      ).map((item) => item.subModulesKey);
 
-      // const promiseRes = [];
-      // // 构建队列
-      // function queue(arr: Array<Promise<any>>) {
-      //   let sequence = Promise.resolve();
-      //   arr?.forEach((item) => {
-      //     sequence = sequence.then(item).then((data) => {
-      //       promiseRes.push(data);
-      //       return promiseRes;
-      //     });
-      //   });
-      //   return sequence;
-      // }
-
-      data.forEach(async (item) => {
-        const { modulesKey, subModulesKey, langKey, copyKey } = item;
-        if (isUsedMark.indexOf(item.langKey) === -1) {
-          const errorMsg = '没有对应语言标识';
-          errorCopyList.push({
+      for (const [key, item] of data) {
+        if (item.modulesKey !== modulesKey) {
+          const errorMsg = '不属于该父模块文案';
+          eventList.errorList.push({
             errorMsg,
             ...item,
           });
-          return;
+          continue;
         }
-        const isHaveCopyWriting = await CopyWritingDao.queryCopyWriting({
-          modulesKey,
-          subModulesKey,
-          langKey,
-          copyKey,
-        } as CopyWriting);
-        if (isHaveCopyWriting) {
-          await CopyWritingDao.updateCopyWriting(item);
+        if (isUsedMark.indexOf(item.langKey) === -1) {
+          const errorMsg = '没有对应语言标识';
+          eventList.errorList.push({
+            errorMsg,
+            ...item,
+          });
+          continue;
+        }
+        if (isUsedSubModuleList.indexOf(item.subModulesKey) === -1) {
+          const errorMsg = '没有对应的子模块';
+          eventList.errorList.push({
+            errorMsg,
+            ...item,
+          });
+          continue;
+        }
+
+        if (daoData.get(key)) {
+          eventList.updateList.push(item);
         } else {
-          await CopyWritingDao.addCopyWriting(item);
+          eventList.createList.push(item);
         }
-      });
+      }
+
+      await CopyWritingDao.addCopyWriting(eventList.createList);
+      await CopyWritingDao.updateCopyWritingByList(eventList.updateList);
 
       next({
         status: 200,
         message: '请求成功',
         data: {
-          errorCopyList,
+          errorList: eventList.errorList,
         },
       });
     } catch (err) {

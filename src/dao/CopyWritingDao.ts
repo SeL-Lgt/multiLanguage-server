@@ -102,4 +102,13 @@ export default class CopyWritingDao {
       });
     return data.execute();
   };
+
+  /**
+   * 批量更新
+   * @param copyWriting
+   */
+  static updateCopyWritingByList = (copyWriting: Array<CopyWriting>) => {
+    const data = dataSource.getRepository(CopyWriting).save(copyWriting);
+    return data;
+  };
 }
