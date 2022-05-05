@@ -410,7 +410,6 @@ export default class CopyWritingServices {
       if (isHaveModule.length < 1) {
         throw new Error('请选择父模块导出文案');
       }
-
       data =
         type === 'error'
           ? data
