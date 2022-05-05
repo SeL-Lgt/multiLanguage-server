@@ -30,6 +30,8 @@ module.exports = {
         devDependencies: true,
       },
     ],
+    'no-restricted-syntax': ['error', "BinaryExpression[operator='of']"],
+    'no-continue': 'off',
   },
   settings: {
     'import/resolver': {
