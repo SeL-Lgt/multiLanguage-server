@@ -14,11 +14,11 @@ export default class CopyWriting extends Base {
   @PrimaryColumn({ type: 'varchar', length: 200 })
   subModulesKey: string;
 
-  @PrimaryColumn({ type: 'varchar', length: 50 })
-  langKey: string;
-
   @PrimaryColumn({ type: 'varchar', length: 255 })
   copyKey: string;
+
+  @PrimaryColumn({ type: 'varchar', length: 50 })
+  langKey: string;
 
   @Column()
   langText: string;
