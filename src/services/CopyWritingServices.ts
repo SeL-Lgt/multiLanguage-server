@@ -429,6 +429,12 @@ export default class CopyWritingServices {
     }
   };
 
+  /**
+   * 下载导入文案模板
+   * @param _req
+   * @param _res
+   * @param next
+   */
   static downloadDefaultCopyExcel = async (
     _req: Request,
     _res: Response,
