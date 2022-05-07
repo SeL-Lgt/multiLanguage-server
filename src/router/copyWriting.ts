@@ -19,6 +19,10 @@ router.post(
   CopyWritingServices.uploadCopy,
 );
 router.post('/downloadCopyWriting', CopyWritingServices.downLoadCopyWriter);
+router.post(
+  '/downloadDefaultCopyExcel',
+  CopyWritingServices.downloadDefaultCopyExcel,
+);
 
 const copyWritingRouter = router;
 

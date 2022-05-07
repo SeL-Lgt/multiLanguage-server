@@ -40,7 +40,7 @@ export default class CopyWritingServices {
       ) {
         next({
           status: 500,
-          message: '存在重复原类型',
+          message: '存在重复语言类型',
         });
         return;
       }
@@ -422,6 +422,37 @@ export default class CopyWritingServices {
         convertData,
         type === 'error' ? '错误文案' : modulesKey,
       );
+      _res.writeHead(200, { 'Content-Type': excelMimeType });
+      _res.end(Buffer.from(fileBuffer, 'binary'));
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  static downloadDefaultCopyExcel = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const keyMaps = {
+        modulesKey: '父模块',
+        subModulesKey: '子模块',
+        copyKey: '对应key值',
+        langKey: '语言标识',
+        langText: '文案',
+        errorMsg: '错误信息',
+      };
+      const excelMimeType =
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+      const data = new CopyWriting();
+      data.modulesKey = '例：DMS-PC';
+      data.subModulesKey = '例：test';
+      data.copyKey = '例：key';
+      data.langKey = '例：zh-CN';
+      data.langText = '例：测试文案';
+      const convertData: Array<CopyWriting> = convertKeys([data], keyMaps);
+      const fileBuffer = exportExcelFromData(convertData, '上传文案Excel模板');
       _res.writeHead(200, { 'Content-Type': excelMimeType });
       _res.end(Buffer.from(fileBuffer, 'binary'));
     } catch (err) {
