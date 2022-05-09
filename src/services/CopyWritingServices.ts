@@ -10,6 +10,7 @@ import ModulesDao from '@dao/ModulesDao';
 import SubModulesDao from '@dao/SubModulesDao';
 import SubModules from '@/entity/SubModules';
 import CopyWritingType from '@/type/CopyWritingServices';
+import Mark from '@/entity/Mark';
 
 export default class CopyWritingServices {
   /**
@@ -313,9 +314,9 @@ export default class CopyWritingServices {
       });
 
       // 查询已使用的语言标识
-      const isUsedMark = (await MarkDao.queryMarkList(true)).map(
-        (item) => item.langKey,
-      );
+      const isUsedMark = (
+        await MarkDao.queryMarkList({ isUsed: true } as Mark)
+      ).map((item) => item.langKey);
       // 查询该父模块下的子模块标识
       const isUsedSubModuleList = (
         await SubModulesDao.querySubModulesNameList({

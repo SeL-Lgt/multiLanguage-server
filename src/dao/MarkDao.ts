@@ -1,6 +1,7 @@
 import dataSource from '@/util/app-data-source';
 import Mark from '@/entity/Mark';
 import langInitList from '@/util/langInitList';
+import PaginationUtil from '@util/paginationUtil';
 
 export default class MarkDao {
   /**
@@ -18,14 +19,18 @@ export default class MarkDao {
 
   /**
    * 查询语言标识列表
-   * @param {boolean|undefined} isUsed 标识是否使用
    * @return {Array<Mark>} 语言标识列表
+   * @param mark
+   * @param pagination
    */
-  static queryMarkList = (isUsed?: boolean) => {
-    let data;
-    data = dataSource.createQueryBuilder(Mark, 'mark');
-    if (isUsed !== undefined) {
+  static queryMarkList = (mark: Mark, pagination?: PaginationUtil) => {
+    const { isUsed } = mark;
+    let data = dataSource.createQueryBuilder(Mark, 'mark');
+    if (typeof isUsed === 'boolean') {
       data = data.where('mark.isUsed = :isUsed', { isUsed });
+    }
+    if (pagination) {
+      data = data.limit(pagination.pageSize).offset(pagination.start);
     }
     return data.getMany();
   };
@@ -66,5 +71,19 @@ export default class MarkDao {
       .where('langKey = :langKey', { langKey })
       .execute();
     return data;
+  };
+
+  /**
+   * 查询语言数量
+   */
+  static queryMarkCount = (mark: Mark) => {
+    const { isUsed } = mark;
+    let data = dataSource
+      .createQueryBuilder(Mark, 'mark')
+      .select('COUNT(*) total');
+    if (typeof isUsed === 'boolean') {
+      data = data.where('mark.isUsed = :isUsed', { isUsed });
+    }
+    return data.getRawOne();
   };
 }
