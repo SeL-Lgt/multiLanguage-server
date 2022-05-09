@@ -11,7 +11,7 @@ router.get('/langMarkInit', MarkServices.langMarkInit);
 /**
  * 查询语言标识列表
  */
-router.post('/queryMarkList', MarkServices.queryMarkList);
+router.get('/queryMarkList', MarkServices.queryMarkList);
 
 /**
  * 添加语言标识

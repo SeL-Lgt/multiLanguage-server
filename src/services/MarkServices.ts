@@ -27,10 +27,7 @@ export default class MarkServices {
 
   /**
    * 查询语言标识列表
-   * @method:POST
-   * @param _req
-   * @param _res
-   * @param next
+   * @method:GET
    */
   static queryMarkList = async (
     _req: Request,
@@ -38,15 +35,26 @@ export default class MarkServices {
     next: NextFunction,
   ) => {
     try {
-      const { body } = _req;
-      const { isUsed, current, pageSize } = body;
+      const { query } = _req;
+      const { isUsed, current, pageSize } =
+        query as unknown as PaginationUtil & {
+          isUsed: string;
+        };
+      /**
+       * 携带current当前页数，则认为是分页请求，进行分页初始化
+       */
       let pagination;
       if (current) {
         pagination = new PaginationUtil({ current, pageSize });
       }
-      const { total } = await MarkDao.queryMarkCount({ isUsed } as Mark);
+      /**
+       * 由于GET请求，获取的布尔值会变为字符串，需要进行转译
+       */
+      const { total } = await MarkDao.queryMarkCount({
+        isUsed: isUsed && isUsed !== 'false',
+      } as Mark);
       const data = await MarkDao.queryMarkList(
-        { isUsed } as Mark,
+        { isUsed: isUsed && isUsed !== 'false' } as Mark,
         pagination as PaginationUtil,
       );
       next({

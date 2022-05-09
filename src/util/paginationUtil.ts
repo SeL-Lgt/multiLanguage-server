@@ -1,3 +1,8 @@
+type paginationType = {
+  pageSize: string | number;
+  current: string | number;
+};
+
 export default class PaginationUtil {
   pageSize: number;
 
@@ -5,9 +10,13 @@ export default class PaginationUtil {
 
   start: number;
 
-  constructor({ pageSize = '10', current = '1' }) {
-    this.current = parseInt(current, 10);
-    this.pageSize = parseInt(pageSize, 10);
+  constructor({ pageSize = '10', current = '1' }: paginationType) {
+    if (typeof current === 'string') {
+      this.current = parseInt(current, 10);
+    }
+    if (typeof pageSize === 'string') {
+      this.pageSize = parseInt(pageSize, 10);
+    }
     this.start = (this.current - 1) * this.pageSize;
   }
 
