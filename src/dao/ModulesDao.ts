@@ -1,5 +1,6 @@
 import Modules from '@/entity/Modules';
 import dataSource from '@util/app-data-source';
+import PaginationUtil from '@util/paginationUtil';
 
 export default class ModulesDao {
   /**
@@ -20,11 +21,14 @@ export default class ModulesDao {
    * 查询所有模块列表
    * 详情信息与模块文案数量
    */
-  static queryModulesList = (modules: Modules) => {
+  static queryModulesList = (modules: Modules, pagination?: PaginationUtil) => {
     const { modulesKey } = modules;
     let data = dataSource.createQueryBuilder(Modules, 'modules');
-    if (modulesKey !== undefined) {
+    if (modulesKey) {
       data = data.where('modules.modulesKey = :modulesKey', { modulesKey });
+    }
+    if (pagination) {
+      data = data.limit(pagination.pageSize).offset(pagination.start);
     }
     return data.getMany();
   };
@@ -57,5 +61,21 @@ export default class ModulesDao {
       .createQueryBuilder(Modules, 'modules')
       .select(['modules.modulesKey']);
     return data.getMany();
+  };
+
+  /**
+   * 查询父模块数量
+   */
+  static queryModulesCount = (modules?: Modules) => {
+    let data = dataSource
+      .createQueryBuilder(Modules, 'modules')
+      .select('COUNT(*) total');
+    if (modules) {
+      const { modulesKey } = modules;
+      if (modulesKey) {
+        data = data.where('modules.modulesKey = :modulesKey', { modulesKey });
+      }
+    }
+    return data.getRawOne();
   };
 }

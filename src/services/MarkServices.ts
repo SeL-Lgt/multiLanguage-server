@@ -36,10 +36,10 @@ export default class MarkServices {
   ) => {
     try {
       const { query } = _req;
-      const { isUsed, current, pageSize } =
-        query as unknown as PaginationUtil & {
-          isUsed: string;
-        };
+      const { current, pageSize } = query as unknown as PaginationUtil;
+      const { isUsed } = query as unknown as {
+        isUsed: string;
+      };
       /**
        * 携带current当前页数，则认为是分页请求，进行分页初始化
        */
@@ -63,8 +63,8 @@ export default class MarkServices {
         data: {
           row: data,
           total: parseInt(total, 10),
-          current: pagination?.current,
-          pageSize: pagination?.pageSize,
+          current,
+          pageSize,
         },
       });
     } catch (err) {
