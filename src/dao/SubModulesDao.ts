@@ -1,5 +1,6 @@
 import dataSource from '@util/app-data-source';
 import SubModules from '@/entity/SubModules';
+import PaginationUtil from '@util/paginationUtil';
 
 export default class SubModulesDao {
   /**
@@ -19,11 +20,17 @@ export default class SubModulesDao {
   /**
    * 查询子模块列表
    */
-  static querySubModulesList = (subModules: SubModules) => {
+  static querySubModulesList = (
+    subModules: SubModules,
+    pagination?: PaginationUtil,
+  ) => {
     const { modulesKey } = subModules;
-    const data = dataSource
+    let data = dataSource
       .createQueryBuilder(SubModules, 'subModules')
       .where('subModules.modulesKey = :modulesKey', { modulesKey });
+    if (pagination) {
+      data = data.limit(pagination.pageSize).offset(pagination.start);
+    }
     return data.getMany();
   };
 
@@ -53,5 +60,21 @@ export default class SubModulesDao {
       .where('subModules.modulesKey = :modulesKey', { modulesKey })
       .select(['subModules.modulesKey', 'subModules.subModulesKey']);
     return data.getMany();
+  };
+
+  /**
+   * 查询子模块数量
+   */
+  static querySubModulesCount = (subModules: SubModules) => {
+    const { modulesKey } = subModules;
+    let data = dataSource
+      .createQueryBuilder(SubModules, 'subModules')
+      .select('COUNT(*) total');
+    if (modulesKey) {
+      data = data.where('subModules.modulesKey = :modulesKey', {
+        modulesKey,
+      });
+    }
+    return data.getRawOne();
   };
 }
