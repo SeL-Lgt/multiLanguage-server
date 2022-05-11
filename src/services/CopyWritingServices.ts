@@ -11,6 +11,7 @@ import SubModulesDao from '@dao/SubModulesDao';
 import SubModules from '@/entity/SubModules';
 import CopyWritingType from '@/type/CopyWritingServices';
 import Mark from '@/entity/Mark';
+import PaginationUtil from '@util/paginationUtil';
 
 export default class CopyWritingServices {
   /**
@@ -91,13 +92,30 @@ export default class CopyWritingServices {
   ) => {
     try {
       const { query } = _req;
+      const { pageSize, current } = query as unknown as PaginationUtil;
+      /**
+       * 携带current当前页数，则认为是分页请求，进行分页初始化
+       */
+      let pagination;
+      if (current) {
+        pagination = new PaginationUtil({ current, pageSize });
+      }
       const data = await CopyWritingDao.queryCopyWriting(
+        query as unknown as CopyWriting,
+        pagination as PaginationUtil,
+      );
+      const { total } = await CopyWritingDao.queryCopyWritingCount(
         query as unknown as CopyWriting,
       );
       next({
         status: 200,
         message: '请求成功',
-        data,
+        data: {
+          row: data,
+          total: parseInt(total, 10),
+          current,
+          pageSize,
+        },
       });
     } catch (err) {
       next(err);
