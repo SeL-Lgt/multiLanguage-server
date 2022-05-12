@@ -315,7 +315,7 @@ export default class CopyWritingServices {
         file?.buffer as unknown as Buffer,
       );
       const convertData: Array<CopyWriting> = convertKeys(excelData, keyMaps);
-      const data = new Map();
+      const data = new Map<string, CopyWriting>();
       convertData.forEach((item) => {
         const { subModulesKey, langKey, copyKey } = item;
         data.set(`${subModulesKey}_${langKey}_${copyKey}`, item);
@@ -325,7 +325,7 @@ export default class CopyWritingServices {
       const copyWritingDaoData = await CopyWritingDao.queryCopyWriting({
         modulesKey,
       } as CopyWriting);
-      const daoData = new Map();
+      const daoData = new Map<string, CopyWriting>();
       copyWritingDaoData.forEach((item) => {
         const { subModulesKey, langKey, copyKey } = item;
         daoData.set(`${subModulesKey}_${langKey}_${copyKey}`, item);
