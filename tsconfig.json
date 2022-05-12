@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
+    "target": "ESNext",
+    "module": "CommonJS",
+    "lib": ["ESNext"],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "./dist",
@@ -34,5 +34,43 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts"],
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+    "replacers": {
+      "~": {
+        "enabled": true,
+        "file": "./*"
+      },
+      "@": {
+        "enabled": true,
+        "file": "./src/*"
+      },
+      "@dao": {
+        "enabled": true,
+        "file": "./src/dao/*"
+      },
+      "@router": {
+        "enabled": true,
+        "file": "./src/router/*"
+      },
+      "@services": {
+        "enabled": true,
+        "file": "./src/services/*"
+      },
+      "@util": {
+        "enabled": true,
+        "file": "./src/util/*"
+      },
+      "@middleware": {
+        "enabled": true,
+        "file": "./src/middleware/*"
+      },
+      "@exceptions": {
+        "enabled": true,
+        "file": "./src/exceptions/*"
+      }
+    }
+  }
 }
