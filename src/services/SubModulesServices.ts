@@ -62,8 +62,8 @@ export default class SubModulesServices {
         data: {
           row: data,
           total: parseInt(total, 10),
-          current,
-          pageSize,
+          current: pagination?.getCurrent(),
+          pageSize: pagination?.getPageSize(),
         },
       });
     } catch (err) {
