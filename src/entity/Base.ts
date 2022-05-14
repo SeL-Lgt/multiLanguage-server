@@ -1,16 +1,16 @@
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export default class Base {
-  @Column({ default: 'admin' })
+  @Column({ default: 'admin', select: false })
   createUser: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createDate: Date;
 
-  @Column({ default: 'admin' })
+  @Column({ default: 'admin', select: false })
   updateUser: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updateDate: Date;
 
   /**
@@ -18,6 +18,6 @@ export default class Base {
    * 0：未删除
    * 1：已删除
    */
-  @Column({ default: 0 })
+  @Column({ default: 0, select: false })
   deleteFlag: boolean;
 }
