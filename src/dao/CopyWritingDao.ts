@@ -53,13 +53,6 @@ export default class CopyWritingDao {
     if (pagination) {
       data = data.limit(pagination.pageSize).offset(pagination.start);
     }
-    data.select([
-      'copyWriting.modulesKey',
-      'copyWriting.subModulesKey',
-      'copyWriting.copyKey',
-      'copyWriting.langKey',
-      'copyWriting.langText',
-    ]);
     return data.getMany();
   };
 

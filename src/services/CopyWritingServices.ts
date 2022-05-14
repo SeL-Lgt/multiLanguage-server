@@ -98,7 +98,10 @@ export default class CopyWritingServices {
        */
       let pagination;
       if (current) {
-        pagination = new PaginationUtil({ current, pageSize });
+        pagination = new PaginationUtil({
+          current,
+          pageSize,
+        });
       }
       const data = await CopyWritingDao.queryCopyWriting(
         query as unknown as CopyWriting,
@@ -402,7 +405,7 @@ export default class CopyWritingServices {
    * @param _res
    * @param next
    */
-  static downLoadCopyWriter = async (
+  static downloadCopyWritingByExcel = async (
     _req: Request,
     _res: Response,
     next: NextFunction,
@@ -435,8 +438,11 @@ export default class CopyWritingServices {
           : await CopyWritingDao.queryCopyWriting({
               modulesKey,
             } as CopyWriting);
-
-      const convertData: Array<CopyWriting> = convertKeys(data, keyMaps);
+      const convertData: Array<CopyWriting> = convertKeys(
+        // 去除undefined的对象值
+        JSON.parse(JSON.stringify(data)),
+        keyMaps,
+      );
       const fileBuffer = exportExcelFromData(
         convertData,
         type === 'error' ? '错误文案' : modulesKey,

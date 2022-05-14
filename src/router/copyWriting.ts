@@ -18,7 +18,10 @@ router.post(
   upload.single('file'),
   CopyWritingServices.uploadCopy,
 );
-router.post('/downloadCopyWriting', CopyWritingServices.downLoadCopyWriter);
+router.post(
+  '/downloadCopyWritingByExcel',
+  CopyWritingServices.downloadCopyWritingByExcel,
+);
 router.post(
   '/downloadDefaultCopyExcel',
   CopyWritingServices.downloadDefaultCopyExcel,
