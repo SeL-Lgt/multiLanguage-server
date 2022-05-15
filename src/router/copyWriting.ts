@@ -22,6 +22,10 @@ router.post(
   '/downloadCopyWritingByExcel',
   CopyWritingServices.downloadCopyWritingByExcel,
 );
+router.get(
+  '/downloadCopyWritingByJSON',
+  CopyWritingServices.downloadCopyWritingByJSON,
+);
 router.post(
   '/downloadDefaultCopyExcel',
   CopyWritingServices.downloadDefaultCopyExcel,

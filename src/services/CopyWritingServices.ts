@@ -400,10 +400,8 @@ export default class CopyWritingServices {
   };
 
   /**
-   * 下载文案
-   * @param _req
-   * @param _res
-   * @param next
+   * 下载文案Excel
+   * @method:POST
    */
   static downloadCopyWritingByExcel = async (
     _req: Request,
@@ -449,6 +447,40 @@ export default class CopyWritingServices {
       );
       _res.writeHead(200, { 'Content-Type': excelMimeType });
       _res.end(Buffer.from(fileBuffer, 'binary'));
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  /**
+   * 下载文案JSON
+   * @method:GET
+   */
+  static downloadCopyWritingByJSON = async (
+    _req: Request,
+    _res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const { query } = _req;
+      const { langKey, modulesKey } = query as unknown as CopyWriting;
+      // 查询父模块是否存在数据库中
+      const isHaveModule = (await ModulesDao.queryModulesNameList()).filter(
+        (item) => item.modulesKey === modulesKey,
+      );
+      if (isHaveModule.length < 1) {
+        throw new Error('请选择父模块导出文案');
+      }
+      const copyWritingData = await CopyWritingDao.queryCopyWriting({
+        modulesKey,
+        langKey,
+      } as CopyWriting);
+      const data: any = {};
+      for (const item of copyWritingData) {
+        const { subModulesKey, copyKey, langText } = item;
+        data[`${subModulesKey}.${copyKey}`] = langText;
+      }
+      _res.status(200).json(data);
     } catch (err) {
       next(err);
     }
