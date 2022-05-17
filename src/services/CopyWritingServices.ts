@@ -12,6 +12,7 @@ import SubModules from '@/entity/SubModules';
 import CopyWritingType from '@/type/CopyWritingServices';
 import Mark from '@/entity/Mark';
 import PaginationUtil from '@util/paginationUtil';
+import dataConversionTree from '@util/dataConversionTree';
 
 export default class CopyWritingServices {
   /**
@@ -480,7 +481,7 @@ export default class CopyWritingServices {
         const { subModulesKey, copyKey, langText } = item;
         data[`${subModulesKey}.${copyKey}`] = langText;
       }
-      _res.status(200).json(data);
+      _res.status(200).json(dataConversionTree(data));
     } catch (err) {
       next(err);
     }
