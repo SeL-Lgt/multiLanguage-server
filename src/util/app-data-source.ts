@@ -9,7 +9,7 @@ const devDB: DataSourceOptions = {
   username: 'root',
   password: '981002',
   database: 'language_i18n',
-  entities: ['./src/entity/*{.js,.ts}'],
+  entities: ['../entity/*{.js,.ts}'],
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: true,
 };
@@ -22,7 +22,7 @@ const prodDB: DataSourceOptions = {
   username: 'test',
   password: '981002',
   database: 'language_i18n',
-  entities: ['./src/entity/*{.js,.ts}'],
+  entities: ['../entity/*{.js,.ts}'],
   namingStrategy: new SnakeNamingStrategy(),
 };
 
