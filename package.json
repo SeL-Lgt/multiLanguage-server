@@ -10,7 +10,7 @@
     "eslint": "eslint --fix .",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "pkg": "pkg . -t linux,win --out-path ./dist",
+    "pkg": "pkg . -t linux --out-path ./dist",
     "pkg:win": "pkg . -t win --out-path ./dist"
   },
   "dependencies": {
