@@ -515,7 +515,10 @@ export default class CopyWritingServices {
       data.copyKey = '例：key';
       data.langKey = '例：zh-CN';
       data.langText = '例：测试文案';
-      const convertData: Array<CopyWriting> = convertKeys([data], keyMaps);
+      const convertData: Array<CopyWriting> = convertKeys(
+        [JSON.parse(JSON.stringify(data))],
+        keyMaps,
+      );
       const fileBuffer = exportExcelFromData(convertData, '上传文案Excel模板');
       _res.writeHead(200, { 'Content-Type': excelMimeType });
       _res.end(Buffer.from(fileBuffer, 'binary'));

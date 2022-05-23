@@ -4,7 +4,7 @@ import Base from './Base';
 
 @Entity('i18n_copywriting')
 export default class CopyWriting extends Base {
-  @Column()
+  @Column({ select: false })
   @Generated('uuid')
   id: number;
 
