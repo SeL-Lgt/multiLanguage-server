@@ -35,45 +35,45 @@
 ## 目录结构
 
 ```
-├── commitlint.config.js                                                    // commit提交校验配置文件
-├── envs                                                    				// 环境变量文件夹
-├── package.json                                                   			// 项目依赖
-├── README.md                                                   			// 说明文档
-├── src                                                      			    // 源码目录
-│   ├── app.ts                                           				    // 程序入口文件
-│   ├── dao                                              					// dao层-数据库请求方法
+├── commitlint.config.js                                            // commit提交校验配置文件
+├── envs                                                            // 环境变量文件夹
+├── package.json                                                    // 项目依赖
+├── README.md                                                       // 说明文档
+├── src                                                             // 源码目录
+│   ├── app.ts                                                      // 程序入口文件
+│   ├── dao                                                         // dao层-数据库请求方法
 │   │   ├── CopyWritingDao.ts
 │   │   ├── MarkDao.ts
 │   │   ├── ModulesDao.ts
 │   │   └── SubModulesDao.ts
-│   ├── entity                                              				// 实体类
+│   ├── entity                                                      // 实体类
 │   │   ├── Base.ts
 │   │   ├── CopyWriting.ts
 │   │   ├── Mark.ts
 │   │   ├── Modules.ts
 │   │   └── SubModules.ts
-│   ├── exceptions                                              			// 请求异常实体类
+│   ├── exceptions                                                  // 请求异常实体类
 │   │   └── HttpException.ts
-│   ├── middleware                                              			// 中间件
+│   ├── middleware                                                  // 中间件
 │   │   └── error-handler.ts
-│   ├── router                                              			    // controller层请求路由
+│   ├── router                                                      // controller层请求路由
 │   │   ├── copyWriting.ts
 │   │   ├── index.ts
 │   │   ├── mark.ts
 │   │   ├── modules.ts
 │   │   └── subModules.ts
-│   ├── services                                              				// 事务处理
+│   ├── services                                                    // 事务处理
 │   │   ├── CopyWritingServices.ts
 │   │   ├── MarkServices.ts
 │   │   ├── ModulesServices.ts
 │   │   └── SubModulesServices.ts
-│   ├── type                                              					// ts类型声明
+│   ├── type                                                        // ts类型声明
 │   │   └── CopyWritingServices.d.ts
-│   └── util                                              					// 工具类
-│       ├── app-data-source.ts                                              // typeORM数据库配置文件
-│       ├── dataConversionTree.ts                                           // 扁平数据结构转树形结构
-│       ├── importExcelFromBuffer.ts										// xlsx插件方法封装
-│       ├── langInitList.ts													// 初始化录入语言偏好
-│       └── paginationUtil.ts												// 分页工具
-└── tsconfig.json															// ts配置文件
+│   └── util                                                        // 工具类
+│       ├── app-data-source.ts                                      // typeORM数据库配置文件
+│       ├── dataConversionTree.ts                                   // 扁平数据结构转树形结构
+│       ├── importExcelFromBuffer.ts                                // xlsx插件方法封装
+│       ├── langInitList.ts                                         // 初始化录入语言偏好
+│       └── paginationUtil.ts                                       // 分页工具
+└── tsconfig.json                                                   // ts配置文件
 ```
