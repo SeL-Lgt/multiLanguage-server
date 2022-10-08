@@ -20,23 +20,26 @@ export default function importExcelFromBuffer(fileBuffer: Buffer) {
  * @param excelData
  * @param keysMap
  */
-export function convertKeys<Raw = any, Target = any>(
+export function convertKeys<Raw = { [key: string]: string }, Target = any>(
   excelData: Raw[],
   keysMap: Record<string, string>,
 ): Target[] {
   return excelData.map((excelItem) =>
-    Object.entries(excelItem).reduce((_prev: any, curt) => {
-      const prev = _prev;
-      const [curtKey, curtValue] = curt;
-      // 更新 key
-      const mappedKey = keysMap[curtKey];
-      if (mappedKey) {
-        prev[mappedKey] = curtValue;
-      } else {
-        prev[curtKey] = curtValue;
-      }
-      return prev;
-    }, {}),
+    Object.entries(excelItem as { [key: string]: string }).reduce(
+      (_prev: any, curt) => {
+        const prev = _prev;
+        const [curtKey, curtValue] = curt;
+        // 更新 key
+        const mappedKey = keysMap[curtKey];
+        if (mappedKey) {
+          prev[mappedKey] = curtValue;
+        } else {
+          prev[curtKey] = curtValue;
+        }
+        return prev;
+      },
+      {},
+    ),
   );
 }
 
