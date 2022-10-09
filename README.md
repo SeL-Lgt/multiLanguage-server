@@ -2,6 +2,11 @@
 
 多语言管理平台后端，以 Express 框架的 Node 后端系统
 
+> 在线地址
+> http://lisay.top/multiLanguage-client
+>
+> 技术栈：Node、Express、TypeScript
+>
 > node 版本：14.19.1
 >
 > npm 版本：6.14.16
